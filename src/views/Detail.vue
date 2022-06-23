@@ -9,7 +9,7 @@
                   {{ x.isi_pengumuman }}
               </div>
               <hr class="mt-4">
-              <div class="mt-4">Di Publikasikan : {{x.tgl_pengumuman}} <strong class="date">{{ x.nama_lengkap }}</strong></div>
+              <div class="mt-4">Di Publikasikan : {{x.tgl_pengumuman}} oleh <strong class="date">{{ x.nama_lengkap }}</strong></div>
           </v-col>
       </v-row>
   </v-container>
