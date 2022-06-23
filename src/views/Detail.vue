@@ -1,9 +1,15 @@
 <template>
   <Navbar/>
   <v-container>
-      <v-row>
-          <v-col md="12">
-
+      <v-row v-for="x in result" :key="x.id_pengumuman" class="justify-center">
+          <v-col md="8">
+              <h1 class="text-center">{{ x.judul_pengumuman }}</h1>
+              <hr>
+              <div class="pengumuman mt-4">
+                  {{ x.isi_pengumuman }}
+              </div>
+              <hr class="mt-4">
+              <div class="mt-4">Di Publikasikan : {{x.tgl_pengumuman}} <strong class="date">{{ x.nama_lengkap }}</strong></div>
           </v-col>
       </v-row>
   </v-container>
@@ -21,18 +27,25 @@ export default defineComponent({
   components: {
     Navbar,Bottom
   },
+  data()
+  {
+        return{
+            result:[],
+        }
+  },
   created()
   {
-    console.log(this.$route.params.id)
+      this.getAll();
   },
   methods:{
       async getAll()
       {
-          await axios.get("").then((response)=>{
-              console.log(response)
-          }).catch((error)=>{
-              console.log(error)
-          })
+            const id = this.$route.params.id
+            await axios.get(`Pengumuman/getPost?id=${id}`).then((response)=>{
+                this.result = response.data.data
+            }).catch((error)=>{
+                console.log(error);
+            })
       }
   }
 
@@ -40,3 +53,15 @@ export default defineComponent({
 
 });
 </script>
+<style scoped>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+    .pengumuman{
+        font-family: 'Quicksand', sans-serif;
+        text-align: justify;
+        font-weight: 90px;
+        
+    }
+    .date{
+        font-style: italic;
+    }
+</style>
